@@ -1,0 +1,79 @@
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+```
+
+
+# Global warming and political views
+
+[A 2010 Pew Research poll](https://www.pewresearch.org/2010/10/27/wide-partisan-divide-over-global-warming/) asked 1,306 Americans, "From what you've read and heard, is there solid evidence that the average temperature on earth has been getting warmer over the past few decades, or not?"
+
+
+Basic explanations:
+
+- `party_or_ideology`: a factor (categorical) variable with levels Conservative Republican, Liberal Democrat, Mod/Cons Democrat, Mod/Lib Republican
+- `response` : whether the respondent believes the earth is warming or not, or Don't know/ refuse to answer
+
+```{r, read_global_warming_pew_data}
+global_warming_pew <- read_csv(here::here("data", "global_warming_pew.csv"))
+```
+
+You will also notice that many responses should not be taken into consideration, like "No Answer", "Don't Know", "Not applicable", "Refused to Answer".
+
+
+```{r}
+global_warming_pew <- read_csv(here::here("data", "global_warming_pew.csv"))
+global_warming1 <- global_warming_pew[!(global_warming_pew$response == "Don't know / refuse to answer"),]
+global_warming1
+```
+
+Many responses should not be taken into consideration, such as “No Answer”, “Don’t Know”, “Not applicable”, “Refused to Answer”.
+
+```{r}
+global_warming1 %>% 
+  count(party_or_ideology, response)
+```
+
+```{r}
+prop.test(248,698)
+```
+
+```{r}
+prop.test(405,428)
+```
+
+```{r}
+prop.test(563,721)
+```
+
+```{r}
+prop.test(135,270)
+```
+
+Liberal Democrats as well as Mod/Cons Democrats tend to believe the Earth is warming, while Conservative Republicans do not believe the Earth is warming. Therefore, their belief are not independent of party ideology. However, among Mod/Lib Republicans, their belief on whether the earth is warming is generally independent of their party ideology.

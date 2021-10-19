@@ -1,0 +1,127 @@
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+```
+
+# How has the CPI and its components changed over the last few years?
+
+```{r}
+#Download relevant packages
+library(rvest)
+library(tidyverse)
+library(tidyquant)
+library(janitor)
+
+# Get the url
+url <- "https://fredaccount.stlouisfed.org/public/datalist/843"
+
+# Get all the tables on the webpage
+tables <- url %>%
+  read_html() %>%
+  html_table(fill=TRUE)
+
+# Get the second table which contains data we are looking for - total CPI and its components
+second_table <- tables[[2]] %>%
+  clean_names()
+
+# Get the series ids as vectors
+component_series_id <- as_tibble(second_table) %>%
+  pull(series_id)
+
+# Create a list containing the component names and their seris ids
+component_list <- tibble(components_id = component_series_id,
+                         component_names = c("Airline Fares","Alcoholic Beverages at Home","Alcoholic Beverages Away from Home","Alcoholic Beverages","All Items","Apparel","Cereals and Bakery Products","Coffee","Dairy and Related Products","Electricity","Energy Services","Fats and Oils","Food and Beverages","Food at Home","Food Away from Home","Food","Footwear","Fruits and Vegetables","Fuel Oil and Other Fuels","Fuels and Utilities","Gasoline (All Types)","Household Energy","Household Furnishings and Operations","Housing","Infants' and Toddlers' Apparel","Lodging Away from Home","Meats, Poultry, Fish, and Eggs","Men's and Boys' Apparel","Motor Fuel","Motor Vehicle Maintenance and Repair","Motor Vehicle Parts and Equipment","New and Used Motor Vehicles","New Vehicles","Nonalcoholic Beverages and Beverages Materials","Other Food at Home","Other Food Away from Home","Other Foods","Owners' Equivalent Rent of Primary Residence","Owners' Equivalent Rent of Residences","Private Transportation","Public Transportation","Rent of Primary Residence","Consumers: Shelter","Sugar and Sweets","Transportation","Used Cars and Trucks","Utility (Piped) Gas Service","Water and Sewer and Trash Collection Services","Women's and Girls' Apparel"))
+
+# Get all the data from the FRED webpage
+component_list <- component_list %>%
+  tq_get(get = "economic.data", from =  "2000-01-01") %>%
+  mutate(year = year(date),
+         yoy_change = price/lag(price, 12) - 1)
+
+# Add a "PN" column addressing whether yoy_change is positive or negative
+component_list <- component_list %>%
+  mutate(PN = case_when(
+    yoy_change > 0 ~ "Positive",
+    yoy_change < 0 ~ "Negative"
+  ))
+
+# Plot the faceted scatter plots
+ggplot(
+  data = component_list,
+  mapping = aes(
+    x = year,
+    y = yoy_change,
+    color = PN)) +
+  geom_point() +
+  labs(title = "Yearly change of US CPI (All Items) and its components",
+       subtitle = "YoY change being positive or negative") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1)) +
+  geom_smooth(method = loess, size=0.5, colour="black") +
+  theme_bw() +
+  facet_wrap(~component_names, scales = "free") +
+  theme(legend.position = "none")
+
+```
+
+```{r}
+
+# List sorted by relevant importance
+component_list2 <- tibble(components_id = c("CPIAUCSL","CPIFABSL","CPIHOSSL","CPIAPPSL","CPITRNSL"), component_names = c("All Items","Food and beverages","Housing","Apparel","Transportation"))
+
+# Get the data from the FRED webpage
+component_list2 <- component_list2 %>%
+  tq_get(get = "economic.data", from =  "2000-01-01") %>%
+  mutate(year = year(date),
+         yoy_change = price/lag(price, 12) - 1)
+
+# Add a "PN" column addressing whether yoy_change is positive or negative
+component_list2 <- component_list2 %>%
+  mutate(PN = case_when(
+    yoy_change > 0 ~ "Positive",
+    yoy_change < 0 ~ "Negative"
+  ))
+
+# Plot the faceted scatter plots
+ggplot(
+  data = component_list2,
+  mapping = aes(
+    x = year,
+    y = yoy_change,
+    color = PN)) +
+  geom_point() +
+  labs(title = "Yearly change of US CPI (All Items) and its components",
+       subtitle = "YoY change being positive or negative") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1)) +
+  geom_smooth(method = loess, size=0.5, colour="black") +
+  theme_bw() +
+  facet_wrap(~component_names, scales = "free") +
+  theme(legend.position = "none")
+
+```
+
