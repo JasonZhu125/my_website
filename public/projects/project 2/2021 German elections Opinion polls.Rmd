@@ -1,0 +1,88 @@
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,   
+  size="small")   
+options(digits = 3)
+
+
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest) 
+```
+
+
+
+Opinion polls for the 2021 German elections
+
+The Guardian newspaper has an [election poll tracker for the upcoming German election](https://www.theguardian.com/world/2021/aug/20/german-election-poll-tracker-who-will-be-the-next-chancellor).
+The list of the opinion polls since Jan 2021 can be found at [Wikipedia](https://en.wikipedia.org/wiki/Opinion_polling_for_the_2021_German_federal_election) and your task is to reproduce the graph similar to the one produced by the Guardian. 
+
+
+The following code will scrape the wikipedia page and import the table in a dataframe.
+
+
+```{r, scrape_wikipedia_polling_data, warnings= FALSE, message=FALSE}
+url <- "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2021_German_federal_election"
+
+tables <- url %>% 
+  read_html() %>% 
+  html_nodes(css="table")
+
+polls <- map(tables, . %>% 
+             html_table(fill=TRUE)%>% 
+             janitor::clean_names())
+
+german_election_polls <- polls[[1]] %>% 
+  slice(2:(n()-1)) %>%  
+  mutate(
+   
+         end_date = str_sub(fieldwork_date, -11),
+         
+         end_date = dmy(end_date),
+         
+         month = month(end_date),
+         week = isoweek(end_date)
+         )
+
+ggplot(data = german_election_polls) + 
+  
+    geom_point(aes(x=end_date, y=union, col="Union"), alpha=2/10) + 
+    geom_point(aes(x=end_date, y=spd, col='SPD'), alpha=2/10) +
+    geom_point(aes(x=end_date, y=af_d, col='AfD'), alpha=2/10) +
+    geom_point(aes(x=end_date, y=fdp,col='FDP'), alpha=2/10) +
+    geom_point(aes(x=end_date, y=linke,col='Linke'), alpha=2/10) +
+    geom_point(aes(x=end_date, y=grune,col='Grüne'), alpha=2/10) +
+    
+    geom_smooth(aes(x=end_date, y=union, col="Union"), size=0.5,se=FALSE) + 
+    geom_smooth(aes(x=end_date, y=spd, col='SPD'), size=0.5, se=FALSE) +
+    geom_smooth(aes(x=end_date, y=af_d, col='AfD'), size=0.5,  se=FALSE) +
+    geom_smooth(aes(x=end_date, y=fdp, col='FDP'),  size=0.5, se=FALSE) +
+    geom_smooth(aes(x=end_date, y=linke, col='Linke'),  size=0.5,se=FALSE) +
+    geom_smooth(aes(x=end_date, y=grune, col='Grüne'),  size=0.5,se=FALSE) +
+    
+  scale_y_continuous(labels = function(x) paste0(x, "%")) + 
+  scale_x_date(breaks = "2 months",date_labels="%b %Y") +
+  scale_color_discrete(breaks= c("Union", "SPD", "AfD","FDP","Linke","Grüne"))+ 
+  labs(title=NULL,x=NULL, y= NULL, colour="" ) 
+
+```

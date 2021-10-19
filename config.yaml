@@ -84,27 +84,27 @@ params:
       - image: pic01.jpg
         subtitle: Visualization & Mapping of AirBnB Beijing
         title: AirBnB Beijing
-        url: "projects/AirBnB - BJ"
+        url: "projects/project 1"
       - image: pic02.jpg
-        subtitle: Analysis of Movies- IMDB Dataset
-        title: IMDB 
-        url: "projects/IMDB"
+        subtitle: Popularity rating for different Germany parties since Jan 2021
+        title: 2021 German elections Opinion polls
+        url: "projects/project 2"
       - image: pic03.jpg
         subtitle: Top 25 alcohol consuming countries
         title: Alcohol Consumption
-        url: "Alcohol consumption"
+        url: "projects/project 3"
       - image: pic04.jpg
         subtitle: How has the CPI and its components changed over the last few years?
         title: CPI
-        url: "projects/CPI"
+        url: "projects/project 4"
       - image: pic05.jpg
         subtitle: Biden's Approval Margins Plot
         title: Biden's Approval 
-        url: "projects/Biden's Approval Margins"
+        url: "projects/project 5"
       - image: pic06.jpg
         subtitle: Correlation between Global warming and political views
         title: Global warming and political views
-        url: "https://mam2022.netlify.app/assignment/01-project.knit/"
+        url: "projects/project 6"
   two:
     buttonText: Get Started
     enable: yes
