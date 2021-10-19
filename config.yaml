@@ -1,0 +1,118 @@
+baseURL: "https://jiacheng125sh.netlify.app/"
+languageCode: en-us
+title: Portfolio website for Jiacheng Zhu
+theme: forty
+googleAnalytics: ''
+disqusShortname: ''
+params:
+  banner:
+    buttonText: Get Started
+    subtitle: |-
+      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
+      AND RELEASED UNDER THE CREATIVE COMMONS.
+    title: Hi, my name is Jiacheng Zhu, currently an MFA student at LBS
+  blog: {}
+  contact:
+    address:
+      - city: London
+        country: United Kingdom
+        street: 203 Marsh Wall
+        title: Address
+    buttonClear: Clear
+    buttonSend: Send message
+    email:
+      - email: jzhu.mfa2022@london.edu
+        title: Email
+    enable: yes
+    phone:
+      - phone: (44) 7536-903930
+        title: Phone
+  custom_css: []
+  custom_js: []
+  description: Your description
+  error404:
+    heading: Page couldn't be found
+    text: Please visit [this page](/)
+  favicon: favicon.ico
+  footer:
+    # copyright: Company Name 
+    # enable: yes
+    # quicklinks:
+      # - alt: HTML5 UP
+        # text: 'Design: '
+        # url: https://www.html5up.net
+    social:
+      # - icon: fa-twitter
+        # label: Twitter
+        # url: https://www.twitter.com
+      # - icon: fa-facebook
+        # label: Facebook
+        # url: https://www.facebook.com
+      # - icon: fa-instagram
+        # label: Instagram
+        # url: https://www.instagram.com
+      - icon: fa-github
+        label: GitHub
+        url: https://github.com/JasonZhu125/my_website.git 
+      - icon: fa-linkedin
+        label: LinkedIn
+        url: https://www.linkedin.com/in/jiacheng-zhu-9861jz
+  # image: ''
+  name: Jiacheng Zhu
+  navigation:
+    button1:
+      - name: Get Started
+        url: blogs
+    button2:
+      - name: Log In
+        url: '#'
+    links:
+      - name: Home
+        url: '#'
+      - name: Blogs
+        url: blogs
+      # - name: Generic Blog
+        # url: blogs/ipsum
+      # - name: Elements
+        # url: elements.html
+    menu: Menu
+    subtitle: By HTML5 Up
+    title: Forty
+  tiles:
+    enable: yes
+    showcase:
+      - image: pic01.jpg
+        subtitle: Visualization & Mapping of AirBnB Beijing
+        title: AirBnB Beijing
+        url: "projects/project 1"
+      - image: pic02.jpg
+        subtitle: Analysis of Movies- IMDB Dataset
+        title: IMDB 
+        url: "projects/project 2"
+      - image: pic03.jpg
+        subtitle: Top 25 alcohol consuming countries
+        title: Alcohol Consumption
+        url: "projects/project 3"
+      - image: pic04.jpg
+        subtitle: How has the CPI and its components changed over the last few years?
+        title: CPI
+        url: "projects/project 4"
+      - image: pic05.jpg
+        subtitle: Biden's Approval Margins Plot
+        title: Biden's Approval 
+        url: "projects/project 5"
+      - image: pic06.jpg
+        subtitle: Correlation between Global warming and political views
+        title: Global warming and political views
+        url: "projects/project 6"
+  two:
+    buttonText: Get Started
+    enable: yes
+    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
+      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
+      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
+      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
+      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
+      amet pharetra et feugiat tempus."
+    title: Massa libero
+    url: blogs
