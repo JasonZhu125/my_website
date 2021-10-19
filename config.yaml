@@ -84,35 +84,30 @@ params:
       - image: pic01.jpg
         subtitle: Visualization & Mapping of AirBnB Beijing
         title: AirBnB Beijing
-        url: "projects/project 1"
+        url: "projects/project 1/AirBnB - BJ"
       - image: pic02.jpg
         subtitle: Analysis of Movies- IMDB Dataset
         title: IMDB 
-        url: "projects/project 2"
+        url: "projects/project 2/IMDB"
       - image: pic03.jpg
         subtitle: Top 25 alcohol consuming countries
         title: Alcohol Consumption
-        url: "projects/project 3"
+        url: "projects/project 3/Alcohol consumption"
       - image: pic04.jpg
         subtitle: How has the CPI and its components changed over the last few years?
         title: CPI
-        url: "projects/project 4"
+        url: "projects/project 4/CPI"
       - image: pic05.jpg
         subtitle: Biden's Approval Margins Plot
         title: Biden's Approval 
-        url: "projects/project 5"
+        url: "projects/project 5/Biden's Approval Margins"
       - image: pic06.jpg
         subtitle: Correlation between Global warming and political views
         title: Global warming and political views
-        url: "projects/project 6"
+        url: "projects/project 6/GSS"
   two:
     buttonText: Get Started
     enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
+    subtitle: "Thanks for visiting my own website."
+    title: To every website viewer
     url: blogs
