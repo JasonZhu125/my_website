@@ -16,7 +16,7 @@ params:
     address:
       - city: London
         country: United Kingdom
-        street: 203 Marsh Wall
+        street: Marsh Wall, Isle of Dogs, Greater London
         title: Address
     buttonClear: Clear
     buttonSend: Send message
@@ -104,7 +104,7 @@ params:
       - image: pic06.jpg
         subtitle: Correlation between Global warming and political views
         title: Global warming and political views
-        url: "projects/GSS"
+        url: "https://mam2022.netlify.app/assignment/01-project.knit/"
   two:
     buttonText: Get Started
     enable: yes
